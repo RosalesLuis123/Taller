@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="orange">#FF6E00</color>
+    <color name="icon_orange">#FF5722</color>
+    <color name="colorPrimary">#6200EE</color> <!-- Ajusta a tu color preferido -->
+    <color name="colorGray">#383737</color> <!-- Color gris -->
+    <color name="Black">#000000</color> <!-- Negro -->
+    <color name="nav_bar_color">#383737</color>
+    <color name="green">#4CAF50</color> <!-- Verde -->
+    <color name="yellow">#FFEB3B</color> <!-- Amarillo -->
+    <color name="red">#F44336</color> <!-- Rojo -->
+</resources>

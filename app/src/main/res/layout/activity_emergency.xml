@@ -1,0 +1,235 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".EmergencyActivity">
+
+  <!-- Logo -->
+  <ImageView
+      android:id="@+id/logoImageView"
+      android:layout_width="88dp"
+      android:layout_height="64dp"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="24dp"
+      android:src="@drawable/logo_fire2" />
+
+  <!-- Grid Layout for Emergency Buttons -->
+  <GridLayout
+      android:id="@+id/gridLayout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/logoImageView"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="32dp"
+      android:columnCount="2"
+      android:rowCount="3">
+
+    <!-- Bomberos Button -->
+    <LinearLayout
+        android:id="@+id/btnFirefighters"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_button_gradient"
+        android:gravity="center"
+        android:orientation="vertical">
+
+      <ImageView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/ic_firetruck" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Bomberos"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          android:layout_marginTop="8dp"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="109"
+          android:textColor="#FFFFFF"
+          android:textSize="20sp"
+          android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Policía Button -->
+    <LinearLayout
+        android:id="@+id/btnPolice"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_button_gradient"
+        android:gravity="center"
+        android:orientation="vertical">
+
+      <ImageView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/ic_police" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Policía"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          android:layout_marginTop="8dp"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="66-42222"
+          android:textColor="#FFFFFF"
+          android:textSize="20sp"
+          android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Radio Patrulla Button -->
+    <LinearLayout
+        android:id="@+id/btnPatrol"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_button_gradient"
+        android:gravity="center"
+        android:orientation="vertical">
+
+      <ImageView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/ic_patrol" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Radio Patrulla"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          android:layout_marginTop="8dp"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="66-43333"
+          android:textColor="#FFFFFF"
+          android:textSize="20sp"
+          android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Ambulancia Button -->
+    <LinearLayout
+        android:id="@+id/btnAmbulance"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_button_gradient"
+        android:gravity="center"
+        android:orientation="vertical">
+
+      <ImageView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/ic_ambulance" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Ambulancia"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          android:layout_marginTop="8dp"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="114"
+          android:textColor="#FFFFFF"
+          android:textSize="20sp"
+          android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Grupo SAR Button -->
+    <LinearLayout
+        android:id="@+id/btnSAR"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_button_gradient"
+        android:gravity="center"
+        android:orientation="vertical">
+
+      <ImageView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/ic_sar" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Grupo SAR"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          android:layout_marginTop="8dp"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="118"
+          android:textColor="#FFFFFF"
+          android:textSize="20sp"
+          android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- FELCC Button -->
+    <LinearLayout
+        android:id="@+id/btnFelcc"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_button_gradient"
+        android:gravity="center"
+        android:orientation="vertical">
+
+      <ImageView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/ic_felcc" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="FELCC"
+          android:textColor="#FFFFFF"
+          android:textSize="16sp"
+          android:layout_marginTop="8dp"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="110"
+          android:textColor="#FFFFFF"
+          android:textSize="20sp"
+          android:textStyle="bold" />
+    </LinearLayout>
+
+  </GridLayout>
+
+  <!-- Bottom Navigation -->
+  <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/bottom_navigation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:background="#1C1C1C"
+      app:itemIconSize="24dp"
+      app:itemIconTint="@color/nav_item_color"
+      app:itemTextColor="@color/nav_item_color"
+      app:labelVisibilityMode="selected"
+      app:menu="@menu/bottom_nav_menu" />
+</RelativeLayout>

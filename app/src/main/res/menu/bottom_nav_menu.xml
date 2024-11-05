@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_fire"
+        android:icon="@drawable/ic_fire"
+    android:title="Incendios" />
+    <item
+        android:id="@+id/navigation_news"
+        android:icon="@drawable/ic_news2"
+    android:title="Noticias" />
+    <item
+        android:id="@+id/navigation_emergency"
+        android:icon="@drawable/ic_emergency2"
+    android:title="Emergencias" />
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+    android:title="Configuraciones" />
+</menu>

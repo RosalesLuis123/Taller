@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1057605942313",
+    "project_id": "fire-tree-17c16",
+    "storage_bucket": "fire-tree-17c16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057605942313:android:106e22a30fd1360dfbb038",
+        "android_client_info": {
+          "package_name": "com.example.fireapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057605942313-kbavmv25nqcl8h9hsgmadio884eep7ci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWsTAKBrTjEr1LFMoufWZKzSJswXXkkZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057605942313-kbavmv25nqcl8h9hsgmadio884eep7ci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057605942313:android:9c73271d0216c613fbb038",
+        "android_client_info": {
+          "package_name": "com.example.incidios2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057605942313-kbavmv25nqcl8h9hsgmadio884eep7ci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWsTAKBrTjEr1LFMoufWZKzSJswXXkkZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057605942313-kbavmv25nqcl8h9hsgmadio884eep7ci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
