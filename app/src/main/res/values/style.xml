@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="GradientButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/button_background</item>
+    </style>
+
+    <style name="DialogButtonStyle">
+        <item name="android:textColor">@color/color_text_2</item> <!-- Color del texto -->
+        <item name="android:background">@drawable/button_secundario</item> <!-- Fondo personalizado -->
+        <item name="android:padding">12dp</item> <!-- Relleno dentro del botón -->
+    </style>
+</resources>

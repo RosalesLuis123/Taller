@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/button_background.xml -->
+<!-- res/drawable/button_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Borde degradado -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/color_secundario_0"
+                android:centerColor="@color/color_primario_0"
+                android:endColor="@color/color_primario_0"
+                android:angle="45" /> <!-- Ajusta el ángulo según sea necesario -->
+            <corners android:radius="12dp" /> <!-- Bordes redondeados -->
+        </shape>
+    </item>
+
+    <!-- Fondo blanco -->
+    <item android:top="2dp" android:right="2dp" android:bottom="2dp" android:left="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" /> <!-- Fondo blanco -->
+            <corners android:radius="12dp" /> <!-- Bordes redondeados -->
+        </shape>
+    </item>
+</layer-list>
+
