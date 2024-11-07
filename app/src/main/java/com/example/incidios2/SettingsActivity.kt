@@ -22,6 +22,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var switchDarkMode: Switch
     private lateinit var manageZonesButton: RelativeLayout
     private lateinit var userProfileImage: ImageView
+    private lateinit var PERFIL_button: RelativeLayout
     private lateinit var userNameTextView: TextView // Nueva variable para el nombre del usuario
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,10 @@ class SettingsActivity : AppCompatActivity() {
         deleteAccountButton = findViewById(R.id.delete_account_button)
         switchDarkMode = findViewById(R.id.switch_dark_mode)
         manageZonesButton = findViewById(R.id.manage_zones_button)
+        PERFIL_button = findViewById(R.id.PERFIL_button)
+
         userProfileImage = findViewById(R.id.user_profile_image)
+
 
         // Configurar el modo oscuro
         switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
@@ -80,7 +84,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // Redirigir a la actividad de perfil cuando se haga clic en la imagen de perfil
-        userProfileImage.setOnClickListener {
+        PERFIL_button.setOnClickListener {
             val intent = Intent(this, PerfilActivity::class.java)
             startActivity(intent)
         }

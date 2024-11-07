@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Permisos necesarios -->
@@ -22,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Incidios2"
         tools:targetApi="31">
+
+        <!-- Otras actividades -->
         <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
@@ -37,25 +38,32 @@
             android:exported="false" />
         <activity
             android:name=".DeleteAccountActivity"
-            android:exported="false" /> <!-- API Key para Google Maps -->
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAn-xLfCZ8gfdzRNhPmtYTkGLkt1jKJoPU" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" /> <!-- SplashScreen Activity con tema específico -->
+            android:value="@integer/google_play_services_version" />
+
+        <!-- SplashScreen Activity con tema específico -->
         <activity
             android:name=".SplashScreenActivity"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true"> <!-- Evita que se quede en el historial -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- LaunchActivity debe ser la siguiente actividad después del SplashScreen -->
         <activity
             android:name=".LaunchActivity"
             android:exported="false" />
+
+        <!-- Otras actividades -->
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
