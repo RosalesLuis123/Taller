@@ -35,6 +35,10 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(Intent(this, EmergencyActivity::class.java))
                     true
                 }
+                R.id.navigation_donation -> {
+                    startActivity(Intent(this, DonationActivity::class.java))
+                    true
+                }
                 R.id.navigation_settings -> {
                     // Ya estamos en settings
                     true
