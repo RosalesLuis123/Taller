@@ -63,7 +63,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="General"
-            android:textColor="#FF0000"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -90,17 +89,16 @@
                 android:layout_alignParentEnd="true"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                android:thumbTint="#FF0000"
                 android:trackTint="#CCCCCC" />
         </RelativeLayout>
 
-        <!-- Gestionar zonas -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F0F0F0"
             android:elevation="2dp"
-            android:padding="12dp">
+            android:padding="12dp"
+            android:id="@+id/manage_zones_button"> <!-- Aquí se le da el ID necesario -->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,9 +112,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_arrow_right"
-                android:tint="#FF0000" />
+                android:src="@drawable/ic_arrow_right" />
         </RelativeLayout>
+
     </LinearLayout>
 
     <!-- Configuración de cuenta -->
@@ -139,6 +137,7 @@
 
         <!-- Cerrar sesión -->
         <RelativeLayout
+            android:id="@+id/logout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -157,12 +156,12 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_arrow_right"
-                android:tint="#FF0000" />
+                android:src="@drawable/ic_arrow_right" />
         </RelativeLayout>
 
         <!-- Borrar cuenta -->
         <RelativeLayout
+            android:id="@+id/delete_account_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F0F0F0"
@@ -180,9 +179,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_arrow_right"
-                android:tint="#FF0000" />
+                android:src="@drawable/ic_arrow_right" />
         </RelativeLayout>
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -195,8 +194,6 @@
             android:textColor="#757575"
             android:textSize="12sp" />
     </LinearLayout>
-
-
 
     <!-- Barra de navegación inferior -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

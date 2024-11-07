@@ -1,95 +1,77 @@
 package com.example.incidios2
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 
 class PerfilActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
-    private lateinit var bottomNavigation: BottomNavigationView
+
+    private lateinit var userName: TextView
+    private lateinit var userEmail: TextView
+    private lateinit var userProfileImage: ImageView
+    private lateinit var editProfileButton: MaterialButton
+    private lateinit var logoutButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
 
-        auth = FirebaseAuth.getInstance()
+        userName = findViewById(R.id.user_name)
+        userEmail = findViewById(R.id.user_email)
+        userProfileImage = findViewById(R.id.user_profile_image)
+        editProfileButton = findViewById(R.id.edit_profile_button)
+        logoutButton = findViewById(R.id.logout_button)
 
-        setupViews()
-        setupUserInfo()
-        setupClickListeners()
-        setupBottomNavigation()
-    }
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        currentUser?.let {
+            userName.text = it.displayName
+            userEmail.text = it.email
+            // Cargar la imagen de perfil si está disponible
+            loadProfileImage(it.photoUrl)
+        }
 
-    private fun setupViews() {
-        bottomNavigation = findViewById(R.id.bottom_navigation)
-    }
+        // Botón Editar perfil
+        editProfileButton.setOnClickListener {
+            startActivity(Intent(this, EditProfileActivity::class.java))
+        }
 
-    private fun setupUserInfo() {
-        val user = auth.currentUser
-        user?.let { firebaseUser ->
-            findViewById<TextView>(R.id.userName)?.text = firebaseUser.displayName ?: "Usuario"
-            findViewById<TextView>(R.id.userEmail)?.text = firebaseUser.email
-            findViewById<TextView>(R.id.profileInitial)?.text =
-                (firebaseUser.displayName?.firstOrNull() ?: "U").toString()
+        // Botón Cerrar sesión
+        logoutButton.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()  // Cierra la actividad actual
         }
     }
 
-    private fun setupClickListeners() {
-        findViewById<LinearLayout>(R.id.editProfileOption)?.setOnClickListener {
-            // Implementar edición de perfil
-        }
-
-        findViewById<LinearLayout>(R.id.changePasswordOption)?.setOnClickListener {
-            // Implementar cambio de contraseña
-        }
-
-        findViewById<MaterialButton>(R.id.logoutButton)?.setOnClickListener {
-            auth.signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
+    // Función para cargar la imagen de perfil
+    private fun loadProfileImage(photoUrl: Uri?) {
+        photoUrl?.let {
+            Glide.with(this).load(it).into(userProfileImage)
+        } ?: run {
+            // Si no hay foto, puedes poner una imagen predeterminada
+            userProfileImage.setImageResource(R.drawable.ic_user)
         }
     }
 
-    private fun setupBottomNavigation() {
-        // Establecer el ítem seleccionado
-        bottomNavigation.selectedItemId = R.id.navigation_settings
+    // Llamar a esta función cuando el perfil se haya actualizado (por ejemplo, al cambiar la foto)
+    private fun updateProfilePhoto(newPhotoUrl: Uri) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val profileUpdates = UserProfileChangeRequest.Builder()
+            .setPhotoUri(newPhotoUrl)
+            .build()
 
-        bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_fire -> {
-                    startActivity(Intent(this, FireActivity::class.java))
-                    finish()
-                    true
-                }
-                R.id.navigation_news -> {
-                    startActivity(Intent(this, NewsActivity::class.java))
-                    finish()
-                    true
-                }
-                R.id.navigation_emergency -> {
-                    startActivity(Intent(this, EmergencyActivity::class.java))
-                    finish()
-                    true
-                }
-                R.id.navigation_settings -> {
-                    // Ya estamos en esta actividad
-                    true
-                }
-                else -> false
+        user?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Actualizar la UI con la nueva foto de perfil
+                loadProfileImage(newPhotoUrl)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        bottomNavigation.selectedItemId = R.id.navigation_settings
     }
 }
