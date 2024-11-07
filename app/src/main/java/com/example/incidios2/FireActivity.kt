@@ -111,14 +111,17 @@ class FireActivity : AppCompatActivity() {
                 val lon = parts[1].toDoubleOrNull() ?: continue
                 val intensity = parts[2].toDoubleOrNull() ?: continue
 
-                val color = when {
-                    intensity < 150 -> Color.GREEN
-                    intensity in 150.0..250.0 -> Color.YELLOW
-                    intensity in 250.0..300.0 -> Color.parseColor("#FFA500")
-                    else -> Color.RED
-                }
+                // Filtra las coordenadas para Bolivia
+                if (lat in -22.0..-10.0 && lon in -69.5..-57.5) {
+                    val color = when {
+                        intensity < 150 -> Color.GREEN
+                        intensity in 150.0..250.0 -> Color.YELLOW
+                        intensity in 250.0..300.0 -> Color.parseColor("#FFA500")
+                        else -> Color.RED
+                    }
 
-                addFireMarker(GeoPoint(lat, lon), color)
+                    addFireMarker(GeoPoint(lat, lon), color)
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -147,7 +150,6 @@ class FireActivity : AppCompatActivity() {
         return BitmapDrawable(resources, bitmap)
     }
 
-
     private fun searchLocation() {
         val locationName = searchBar.text.toString().trim()
         if (locationName.isNotEmpty()) {
@@ -174,4 +176,5 @@ class FireActivity : AppCompatActivity() {
                 }
             }
         }
-    }}
+    }
+}

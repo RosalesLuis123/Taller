@@ -25,13 +25,18 @@
             <EditText
                 android:id="@+id/searchBar"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@id/searchButton"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/card_background_white"
                 android:hint="Buscar ubicación"
-                android:minHeight="48dp" />
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/color_text_1"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"/>
 
             <ImageButton
                 android:id="@+id/searchButton"
