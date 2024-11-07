@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.Call
@@ -26,7 +27,7 @@ import java.io.IOException
 class FireActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var searchBar: EditText
-    private lateinit var searchButton: Button
+    private lateinit var searchButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

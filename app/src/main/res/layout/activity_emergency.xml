@@ -13,7 +13,7 @@
       android:layout_height="64dp"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="24dp"
-      android:src="@drawable/logo_fire2" />
+      android:src="@drawable/icono_negrosvg" />
 
   <!-- Grid Layout for Emergency Buttons -->
   <GridLayout
@@ -39,13 +39,15 @@
       <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:src="@drawable/ic_firetruck" />
+          android:src="@drawable/baseline_fire_truck_24"
+          app:tint="@color/color_text_2"/>
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Bomberos"
-          android:textColor="#FFFFFF"
+          android:textColor="@color/color_text_0"
+          android:textStyle="bold"
           android:textSize="16sp"
           android:layout_marginTop="8dp"/>
 
@@ -53,8 +55,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="109"
-          android:textColor="#FFFFFF"
-          android:textSize="20sp"
+          android:textColor="@color/color_text_2"
+          android:textSize="24sp"
           android:textStyle="bold" />
     </LinearLayout>
 
@@ -71,14 +73,16 @@
       <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:src="@drawable/ic_police" />
+          android:src="@drawable/baseline_phone_callback_24"
+          app:tint="@color/color_text_2"/>
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Policía"
-          android:textColor="#FFFFFF"
           android:textSize="16sp"
+          android:textColor="@color/color_text_0"
+          android:textStyle="bold"
           android:layout_marginTop="8dp"/>
 
       <TextView
@@ -86,7 +90,7 @@
           android:layout_height="wrap_content"
           android:text="66-42222"
           android:textColor="#FFFFFF"
-          android:textSize="20sp"
+          android:textSize="24sp"
           android:textStyle="bold" />
     </LinearLayout>
 
@@ -103,13 +107,15 @@
       <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:src="@drawable/ic_patrol" />
+          android:src="@drawable/baseline_local_police_24"
+          app:tint="@color/color_text_2"/>
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Radio Patrulla"
-          android:textColor="#FFFFFF"
+          android:textColor="@color/color_text_0"
+          android:textStyle="bold"
           android:textSize="16sp"
           android:layout_marginTop="8dp"/>
 
@@ -117,8 +123,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="66-43333"
-          android:textColor="#FFFFFF"
-          android:textSize="20sp"
+          android:textColor="@color/color_text_2"
+          android:textSize="24sp"
           android:textStyle="bold" />
     </LinearLayout>
 
@@ -135,13 +141,15 @@
       <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:src="@drawable/ic_ambulance" />
+          android:src="@drawable/baseline_medical_services_24"
+          app:tint="@color/color_text_2"/>
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Ambulancia"
-          android:textColor="#FFFFFF"
+          android:textColor="@color/color_text_0"
+          android:textStyle="bold"
           android:textSize="16sp"
           android:layout_marginTop="8dp"/>
 
@@ -149,8 +157,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="114"
-          android:textColor="#FFFFFF"
-          android:textSize="20sp"
+          android:textColor="@color/color_text_2"
+          android:textSize="24sp"
           android:textStyle="bold" />
     </LinearLayout>
 
@@ -167,13 +175,15 @@
       <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:src="@drawable/ic_sar" />
+          android:src="@drawable/baseline_policy_24"
+          app:tint="@color/color_text_2"/>
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Grupo SAR"
-          android:textColor="#FFFFFF"
+          android:textColor="@color/color_text_0"
+          android:textStyle="bold"
           android:textSize="16sp"
           android:layout_marginTop="8dp"/>
 
@@ -181,8 +191,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="118"
-          android:textColor="#FFFFFF"
-          android:textSize="20sp"
+          android:textColor="@color/color_text_2"
+          android:textSize="24sp"
           android:textStyle="bold" />
     </LinearLayout>
 
@@ -199,13 +209,15 @@
       <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:src="@drawable/ic_felcc" />
+          android:src="@drawable/baseline_phone_callback_24"
+          app:tint="@color/color_text_2"/>
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="FELCC"
-          android:textColor="#FFFFFF"
+          android:textColor="@color/color_text_0"
+          android:textStyle="bold"
           android:textSize="16sp"
           android:layout_marginTop="8dp"/>
 
@@ -213,8 +225,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="110"
-          android:textColor="#FFFFFF"
-          android:textSize="20sp"
+          android:textColor="@color/color_text_2"
+          android:textSize="24sp"
           android:textStyle="bold" />
     </LinearLayout>
 

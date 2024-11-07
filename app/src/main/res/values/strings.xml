@@ -3,5 +3,6 @@
     <string name="favorite" />
     <string name="news_image" />
     <string name="default_web_client_id">1057605942313-kbavmv25nqcl8h9hsgmadio884eep7ci.apps.googleusercontent.com</string>
+    <string name="app_logo" />
 
 </resources>

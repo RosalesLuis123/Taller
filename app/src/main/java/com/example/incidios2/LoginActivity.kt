@@ -1,27 +1,27 @@
-@file:Suppress("DEPRECATION")
-
 package com.example.incidios2
 
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import androidx.appcompat.app.AlertDialog
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -37,46 +37,78 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Initialize views
-        passwordEditText = findViewById(R.id.passwordEditText)
-        passwordLayout = findViewById(R.id.passwordLayout)
-
         // Initialize Firebase Auth
         auth = Firebase.auth
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("YOUR_WEB_CLIENT_ID") // Reemplaza con tu Web Client ID
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Setup click listeners
+        // Initialize views and setup listeners
+        initializeViews()
         setupClickListeners()
+    }
+
+    private fun initializeViews() {
+        passwordEditText = findViewById(R.id.passwordEditText)
+        passwordLayout = findViewById(R.id.passwordLayout)
+
+        // Recuperar preferencia de "recordarme" si existe
+        val rememberMe = getSharedPreferences("login_prefs", MODE_PRIVATE)
+            .getBoolean("remember_me", false)
+        findViewById<CheckBox>(R.id.rememberMeCheckBox)?.isChecked = rememberMe
+
+        // Si "recordarme" está activado, cargar el email guardado
+        if (rememberMe) {
+            val savedEmail = getSharedPreferences("login_prefs", MODE_PRIVATE)
+                .getString("saved_email", "")
+            findViewById<EditText>(R.id.emailEditText)?.setText(savedEmail)
+        }
     }
 
     private fun setupClickListeners() {
         // Login button
-        findViewById<Button>(R.id.loginButton).setOnClickListener {
-            val email = findViewById<EditText>(R.id.emailEditText).text.toString()
+        findViewById<MaterialButton>(R.id.loginButton)?.setOnClickListener {
+            val email = findViewById<EditText>(R.id.emailEditText)?.text.toString()
             val password = passwordEditText.text.toString()
             signInWithEmailPassword(email, password)
         }
 
         // Create Account text
-        findViewById<TextView>(R.id.createAccountText).setOnClickListener {
-            showCreateAccountDialog()
+        findViewById<TextView>(R.id.createAccountText)?.setOnClickListener {
+            // Reemplazar showCreateAccountDialog() por la navegación a RegisterActivity
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
-
         // Forgot Password text
-        findViewById<TextView>(R.id.forgotPasswordText).setOnClickListener {
+        findViewById<TextView>(R.id.forgotPasswordText)?.setOnClickListener {
             showForgotPasswordDialog()
         }
 
+        // Remember me checkbox
+        findViewById<CheckBox>(R.id.rememberMeCheckBox)?.setOnCheckedChangeListener { _, isChecked ->
+            getSharedPreferences("login_prefs", MODE_PRIVATE)
+                .edit()
+                .putBoolean("remember_me", isChecked)
+                .apply()
+        }
+
         // Social login buttons
-        findViewById<ImageView>(R.id.googleIcon).setOnClickListener {
+        findViewById<ImageButton>(R.id.googleIcon)?.setOnClickListener {
             startGoogleSignIn()
+        }
+
+        findViewById<ImageButton>(R.id.facebookIcon)?.setOnClickListener {
+            // Implementar inicio de sesión con Facebook
+            showToast("Iniciando sesión con Facebook...")
+        }
+
+        findViewById<ImageButton>(R.id.twitterIcon)?.setOnClickListener {
+            // Implementar inicio de sesión con Twitter
+            showToast("Iniciando sesión con Twitter...")
         }
     }
 
@@ -103,21 +135,9 @@ class LoginActivity : AppCompatActivity() {
             .setNegativeButton("Cancelar", null)
             .create()
 
-        // Aplicar fondo blanco
-        dialog.window?.setBackgroundDrawableResource(android.R.color.white)
-
-        // Cambiar el color del texto del título y de los botones
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
-
-            // Cambiar el color del título
-            dialog.window?.decorView?.findViewById<TextView>(android.R.id.title)?.setTextColor(Color.BLACK)
-
-            // Cambiar el color de los EditText
-            emailEdit.setTextColor(Color.BLACK)
-            passwordEdit.setTextColor(Color.BLACK)
-            confirmPasswordEdit.setTextColor(Color.BLACK)
         }
 
         dialog.show()
@@ -137,19 +157,9 @@ class LoginActivity : AppCompatActivity() {
             .setNegativeButton("Cancelar", null)
             .create()
 
-        // Aplicar fondo blanco
-        dialog.window?.setBackgroundDrawableResource(android.R.color.white)
-
-        // Cambiar el color del texto del título y de los botones
         dialog.setOnShowListener {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
-
-            // Cambiar el color del título
-            dialog.window?.decorView?.findViewById<TextView>(android.R.id.title)?.setTextColor(Color.BLACK)
-
-            // Cambiar el color de los EditText
-            emailEdit.setTextColor(Color.BLACK)
         }
 
         dialog.show()
@@ -229,6 +239,13 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    // Guardar email si "recordarme" está activado
+                    if (findViewById<CheckBox>(R.id.rememberMeCheckBox)?.isChecked == true) {
+                        getSharedPreferences("login_prefs", MODE_PRIVATE)
+                            .edit()
+                            .putString("saved_email", email)
+                            .apply()
+                    }
                     navigateToMain()
                 } else {
                     showToast("Error en inicio de sesión: ${task.exception?.message}")

@@ -2,9 +2,11 @@
     android:shape="rectangle">
     <corners android:radius="16dp" />
     <gradient
-        android:startColor="#FF6E00"
-        android:endColor="#FF9E30"
-        android:angle="0" />
+        android:startColor="@color/color_secundario_0"
+        android:centerColor="@color/color_primario_0"
+        android:endColor="@color/color_primario_0"
+        android:angle="-135"
+        android:useLevel="false" />
     <padding
         android:left="16dp"
         android:right="16dp"

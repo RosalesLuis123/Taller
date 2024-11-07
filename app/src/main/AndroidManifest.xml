@@ -26,14 +26,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAn-xLfCZ8gfdzRNhPmtYTkGLkt1jKJoPU" />
 
-        <!-- Configuración de intent de Google Sign-In -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <!-- Declarar LoginActivity como pantalla de inicio -->
+        <!-- SplashScreen Activity con tema específico -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,13 +40,30 @@
             </intent-filter>
         </activity>
 
-        <!-- Declaración de otras actividades -->
+        <activity
+            android:name=".LaunchActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+
+
+
+
         <activity android:name=".FireActivity" android:exported="false" />
         <activity android:name=".EmergencyActivity" android:exported="false" />
-        <activity android:name=".SettingsActivity" android:exported="false" />
         <activity android:name=".NewsActivity" android:exported="false" />
-        <activity android:name=".CreateAccountActivity" android:exported="false" />
-        <activity android:name=".MainActivity" android:exported="true" />
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+
 
     </application>
 </manifest>

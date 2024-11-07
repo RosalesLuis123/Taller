@@ -1,8 +1,13 @@
 <!-- res/drawable/bg_button_gradient.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <gradient
-        android:startColor="#FF5722"
-        android:endColor="#FFC107"
-        android:angle="45" />
+        android:startColor="@color/color_secundario_0"
+        android:centerColor="@color/color_primario_0"
+        android:endColor="@color/color_primario_0"
+        android:angle="-135"
+        android:useLevel="false" />
+
+    <!-- Bordes redondeados de 12dp -->
     <corners android:radius="12dp" />
 </shape>
+
