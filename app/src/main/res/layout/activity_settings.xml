@@ -5,59 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".SettingsActivity">
 
-    <!-- Header con fondo gradiente y logo -->
+    tools:context=".SettingsActivity">
+    <!-- Configuración general -->
+    <ImageView
+        android:id="@+id/imageView2Configuracion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-70dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fondosvg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Configuración de cuenta -->
+
     <LinearLayout
-        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="212dp"
-        android:background="@drawable/gradient_background"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="104dp"
+        android:padding="8dp"
+        android:gravity="bottom">
 
         <ImageView
             android:id="@+id/user_profile_image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_user" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_user"
+            />
 
-        <TextView
-            android:id="@+id/user_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Jose Perez"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/user_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Jose789@gmail.com"
-            android:textColor="#D3D3D3"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Jose Perez"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="12dp"
-            android:src="@drawable/logo_fire" />
+            <TextView
+                android:id="@+id/user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jose789@gmail.com"
+                android:textColor="#D3D3D3"
+                android:textSize="14sp" />
+        </LinearLayout>
+
     </LinearLayout>
-
-    <!-- Configuración general -->
-
-    <!-- Configuración de cuenta -->
 
     <LinearLayout
         android:id="@+id/general_settings_layout"
         android:layout_width="match_parent"
         android:layout_height="169dp"
-        android:layout_below="@+id/linearLayout4"
-        android:layout_marginTop="8dp"
+        android:layout_below="@+id/imageView2Configuracion"
+        android:layout_marginTop="-25dp"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -66,41 +77,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="General"
+            android:textColor="#FF0000"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Modo oscuro -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="#F0F0F0"
-            android:elevation="2dp"
-            android:padding="12dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Modo oscuro"
-                android:textColor="#333333"
-                android:textSize="16sp" />
-
-            <Switch
-                android:id="@+id/switch_dark_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="31dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="12dp"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:trackTint="#CCCCCC" />
-        </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/manage_zones_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#F0F0F0"
+            android:background="@drawable/card_background"
             android:elevation="2dp"
             android:padding="12dp"> <!-- Aquí se le da el ID necesario -->
 
@@ -108,6 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gestionar zonas"
+                android:layout_centerVertical="true"
                 android:textColor="#333333"
                 android:textSize="16sp" />
 
@@ -115,8 +101,9 @@
                 android:id="@+id/icon_manage_zones"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_arrow_right" />
+                android:src="@drawable/baseline_navigate_next_24" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -127,7 +114,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/general_settings_layout"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -142,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="#F0F0F0"
+            android:background="@drawable/card_background"
             android:elevation="2dp"
             android:padding="12dp">
 
@@ -150,14 +139,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Perfil de usuario"
+                android:layout_centerVertical="true"
                 android:textColor="#333333"
                 android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_arrow_right" />
+                android:src="@drawable/baseline_navigate_next_24" />
         </RelativeLayout>
         <!-- Cerrar sesión -->
         <RelativeLayout
@@ -165,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="#F0F0F0"
+            android:background="@drawable/card_background"
             android:elevation="2dp"
             android:padding="12dp">
 
@@ -173,37 +164,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Salir"
+                android:layout_centerVertical="true"
                 android:textColor="#333333"
                 android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_arrow_right" />
-        </RelativeLayout>
-
-        <!-- Borrar cuenta -->
-        <RelativeLayout
-            android:id="@+id/delete_account_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#F0F0F0"
-            android:elevation="2dp"
-            android:padding="12dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Borrar cuenta"
-                android:textColor="#333333"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_arrow_right" />
+                android:src="@drawable/baseline_navigate_next_24" />
         </RelativeLayout>
 
         <TextView
@@ -231,4 +201,18 @@
         app:itemTextColor="@color/nav_item_color"
         app:labelVisibilityMode="selected"
         app:menu="@menu/bottom_nav_menu" />
+
+    <ImageView
+        android:id="@+id/logoImageViewConfiguracion"
+        android:layout_width="81dp"
+        android:layout_height="76dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="31dp"
+        android:src="@drawable/icono_blancosvg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </RelativeLayout>

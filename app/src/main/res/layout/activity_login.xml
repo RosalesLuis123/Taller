@@ -7,49 +7,40 @@
     android:background="@android:color/white">
 
     <!-- Área del gradiente superior -->
-    <View
-        android:id="@+id/gradientBackground"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/login_gradient_background"
-        app:layout_constraintHeight_percent="0.4"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Onda blanca -->
     <ImageView
-        android:id="@+id/waveBackground"
-        android:layout_width="match_parent"
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/wave_shape"
-        app:layout_constraintBottom_toBottomOf="@id/gradientBackground"
-        app:layout_constraintVertical_bias="0.85" />
-
-    <!-- Logo de la app -->
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:contentDescription="App Logo"
-        android:src="@drawable/logo_fire"
-        app:layout_constraintBottom_toBottomOf="@id/gradientBackground"
+        android:layout_marginTop="-70dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fondosvg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Logo de la app -->
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/icono_blancosvg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- Texto LOGIN -->
     <TextView
         android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LOGIN"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/color_text_1"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/logoImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <!-- Campos de entrada en un CardView -->
     <androidx.cardview.widget.CardView
@@ -57,10 +48,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/gradientBackground"
+        app:layout_constraintTop_toBottomOf="@id/loginTitle"
         tools:layout_editor_absoluteX="24dp">
 
         <LinearLayout
@@ -111,36 +102,98 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <RelativeLayout
+        android:id="@+id/deltaRelative"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintTop_toBottomOf="@+id/inputCardView">
+
+        <CheckBox
+            android:layout_marginLeft="32dp"
+            android:id="@+id/rememberMeCheckBox"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="31dp"
+            android:text="Recordarme"
+            android:textColor="#757575"
+            android:textSize="8sp"
+            />
+
+        <TextView
+            android:textAlignment="center"
+            android:gravity="center"
+            android:id="@+id/forgotPasswordText"
+            android:layout_width="160dp"
+            android:layout_height="34dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="30dp"
+            android:text="Olvidé mi contraseña?"
+            android:textColor="@color/orange"
+            android:textSize="14sp" />
+
+
+
+
+    </RelativeLayout>
+
     <!-- Recordarme y Olvidaste contraseña -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/loginButton"
-        android:layout_width="230dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/orange"
         android:padding="12dp"
         android:text="INICIAR SESIÓN"
         android:textSize="16sp"
-        app:cornerRadius="25dp"
+        app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputCardView" />
+        app:layout_constraintTop_toBottomOf="@id/deltaRelative" />
 
     <LinearLayout
         android:id="@+id/rememberForgotLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/inputCardView">
+        android:layout_margin="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/socialIconsLayout"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        tools:layout_editor_absoluteX="24dp">
+
+        <TextView
+            android:id="@+id/createAccountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Nuevo Usuario? Registrarse"
+            android:textColor="@color/orange" />
 
         <View
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@color/orange" />
+
+        <TextView
+            android:id="@+id/socialLoginText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="O iniciar sesión con"
+            android:textColor="#757575" />
 
     </LinearLayout>
 
@@ -148,41 +201,21 @@
 
     <!-- Iconos sociales -->
 
-    <TextView
-        android:id="@+id/createAccountText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:text="Nuevo Usuario? Registrarse"
-        android:textColor="@color/orange"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rememberForgotLayout" />
 
-    <TextView
-        android:id="@+id/socialLoginText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="O iniciar sesión con"
-        android:textColor="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/createAccountText" />
+
+
 
     <LinearLayout
         android:id="@+id/socialIconsLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:spacing="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/socialLoginText">
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/facebookIcon"
@@ -208,32 +241,6 @@
             android:src="@drawable/ic_google" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/forgotPasswordText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="30dp"
-        android:text="Olvidé mi contraseña?"
-        android:textColor="@color/orange"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/createAccountText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton"
-        app:layout_constraintVertical_bias="0.055" />
 
-    <CheckBox
-        android:id="@+id/rememberMeCheckBox"
-        android:layout_width="85dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="31dp"
-        android:text="Recordarme"
-        android:textColor="#757575"
-        android:textSize="8sp"
-        app:layout_constraintEnd_toStartOf="@+id/loginButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputCardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

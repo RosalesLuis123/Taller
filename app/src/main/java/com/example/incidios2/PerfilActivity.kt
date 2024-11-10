@@ -1,5 +1,6 @@
 package com.example.incidios2
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,17 +15,20 @@ import com.google.firebase.auth.UserProfileChangeRequest
 class PerfilActivity : AppCompatActivity() {
 
     private lateinit var userName: TextView
+    private lateinit var deleteAccountButton: MaterialButton
     private lateinit var userEmail: TextView
     private lateinit var userProfileImage: ImageView
     private lateinit var editProfileButton: MaterialButton
     private lateinit var logoutButton: MaterialButton
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
 
         userName = findViewById(R.id.user_name)
         userEmail = findViewById(R.id.user_email)
+        deleteAccountButton = findViewById(R.id.delete_account_button)
         userProfileImage = findViewById(R.id.user_profile_image)
         editProfileButton = findViewById(R.id.edit_profile_button)
         logoutButton = findViewById(R.id.logout_button)
@@ -41,7 +45,11 @@ class PerfilActivity : AppCompatActivity() {
         editProfileButton.setOnClickListener {
             startActivity(Intent(this, EditProfileActivity::class.java))
         }
-
+        // Botón para borrar cuenta (redirige a la nueva actividad)
+        deleteAccountButton.setOnClickListener {
+            val intent = Intent(this, DeleteAccountActivity::class.java)
+            startActivity(intent)
+        }
         // Botón Cerrar sesión
         logoutButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut()

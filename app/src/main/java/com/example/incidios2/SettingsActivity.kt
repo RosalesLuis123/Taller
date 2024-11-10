@@ -18,8 +18,6 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var userEmailTextView: TextView
     private lateinit var logoutButton: RelativeLayout
-    private lateinit var deleteAccountButton: RelativeLayout
-    private lateinit var switchDarkMode: Switch
     private lateinit var manageZonesButton: RelativeLayout
     private lateinit var userProfileImage: ImageView
     private lateinit var PERFIL_button: RelativeLayout
@@ -34,26 +32,10 @@ class SettingsActivity : AppCompatActivity() {
         userEmailTextView = findViewById(R.id.user_email)
         userNameTextView = findViewById(R.id.user_name) // Inicializa el TextView para el nombre
         logoutButton = findViewById(R.id.logout_button)
-        deleteAccountButton = findViewById(R.id.delete_account_button)
-        switchDarkMode = findViewById(R.id.switch_dark_mode)
         manageZonesButton = findViewById(R.id.manage_zones_button)
         PERFIL_button = findViewById(R.id.PERFIL_button)
-
         userProfileImage = findViewById(R.id.user_profile_image)
 
-
-        // Configurar el modo oscuro
-        switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                // Activar modo oscuro
-                Toast.makeText(this, "Modo oscuro activado", Toast.LENGTH_SHORT).show()
-                // Aquí puedes añadir lógica para activar el modo oscuro
-            } else {
-                // Desactivar modo oscuro
-                Toast.makeText(this, "Modo oscuro desactivado", Toast.LENGTH_SHORT).show()
-                // Aquí puedes añadir lógica para desactivar el modo oscuro
-            }
-        }
 
         // Recupera el correo del usuario desde Firebase y mostrarlo
         val currentUser: FirebaseUser? = mAuth.currentUser
@@ -71,11 +53,6 @@ class SettingsActivity : AppCompatActivity() {
             finish() // Cierra la actividad actual
         }
 
-        // Botón para borrar cuenta (redirige a la nueva actividad)
-        deleteAccountButton.setOnClickListener {
-            val intent = Intent(this, DeleteAccountActivity::class.java)
-            startActivity(intent)
-        }
 
         // Configurar el botón "Gestionar zonas" para que navegue a la actividad correspondiente
         manageZonesButton.setOnClickListener {
