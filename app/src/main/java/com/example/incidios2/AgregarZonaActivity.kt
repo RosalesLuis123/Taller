@@ -1,4 +1,5 @@
 package com.example.incidios2
+
 import android.location.Geocoder
 import android.os.Bundle
 import android.widget.Button
@@ -12,6 +13,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import com.example.app.Zona
 import java.util.Locale
 
@@ -24,6 +28,8 @@ class AgregarZonaActivity : AppCompatActivity(), OnMapReadyCallback {
     private var googleMap: GoogleMap? = null
     private var selectedLocation: LatLng? = null
     private var nombreUbicacion: String? = null
+    private val firestore = FirebaseFirestore.getInstance()
+    private val currentUser = FirebaseAuth.getInstance().currentUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +59,14 @@ class AgregarZonaActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Configurar el botón para guardar la zona
         btnGuardarZona.setOnClickListener {
-            guardarZona()
+            if (GestionarZonasActivity.zonaToEdit != null) {
+                editarZona()
+            } else {
+                guardarZona()
+            }
         }
+
+        // Si estamos editando una zona, cargamos la información
         GestionarZonasActivity.zonaToEdit?.let {
             selectedLocation = it.coordenadas
             nombreUbicacion = it.nombreUbicacion
@@ -62,22 +74,6 @@ class AgregarZonaActivity : AppCompatActivity(), OnMapReadyCallback {
             agregarMarcadorZona(it.coordenadas)
             actualizarCirculo(it.rango.toDouble())
         }
-
-// Actualizar la zona en la lista al guardar
-        btnGuardarZona.setOnClickListener {
-            if (GestionarZonasActivity.zonaToEdit != null) {
-                GestionarZonasActivity.zonaToEdit?.apply {
-                    coordenadas = selectedLocation ?: coordenadas
-                    rango = seekBarRango.progress + 10
-                    nombreUbicacion = this@AgregarZonaActivity.nombreUbicacion
-                }
-                GestionarZonasActivity.zonaToEdit = null
-            } else {
-                guardarZona()
-            }
-            finish()
-        }
-
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -121,10 +117,8 @@ class AgregarZonaActivity : AppCompatActivity(), OnMapReadyCallback {
         val geocoder = Geocoder(this, Locale.getDefault())
         try {
             val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-            if (addresses != null) {
-                if (addresses.isNotEmpty()) {
-                    nombreUbicacion = addresses[0].getAddressLine(0)
-                }
+            if (addresses != null && addresses.isNotEmpty()) {
+                nombreUbicacion = addresses[0].getAddressLine(0)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -141,10 +135,71 @@ class AgregarZonaActivity : AppCompatActivity(), OnMapReadyCallback {
                 rango = rango,
                 nombreUbicacion = nombreUbicacion
             )
-            GestionarZonasActivity.zonas.add(zona)
-            finish()
+
+            // Convertir coordenadas LatLng a GeoPoint
+            val geoPoint = zona.toGeoPoint()
+
+            // Guardar en Firestore
+            currentUser?.let { user ->
+                firestore.collection("users").document(user.uid).collection("zonas")
+                    .add(mapOf(
+                        "nombre" to zona.nombre,
+                        "coordenadas" to geoPoint,  // Guardar como GeoPoint
+                        "rango" to zona.rango,
+                        "nombreUbicacion" to zona.nombreUbicacion
+                    ))
+                    .addOnSuccessListener {
+                        // Añadir la zona a la lista local
+                        GestionarZonasActivity.zonas.add(zona)
+                        finish()  // Volver a la pantalla anterior
+                    }
+                    .addOnFailureListener { e ->
+                        e.printStackTrace()
+                    }
+            }
         }
     }
+
+
+
+    private fun editarZona() {
+        val rango = seekBarRango.progress + 10
+        val location = selectedLocation
+        if (location != null && GestionarZonasActivity.zonaToEdit != null) {
+            val zonaEditada = GestionarZonasActivity.zonaToEdit?.apply {
+                this.coordenadas = location
+                this.rango = rango
+                this.nombreUbicacion = nombreUbicacion
+            }
+
+            // Convertir coordenadas LatLng a GeoPoint
+            val geoPoint = zonaEditada?.toGeoPoint()
+
+            // Actualizar la zona en Firestore
+            currentUser?.let { user ->
+                val documentId = zonaEditada?.documentId
+                if (documentId != null) {
+                    // Usar el ID del documento existente para actualizarlo
+                    firestore.collection("users").document(user.uid).collection("zonas")
+                        .document(documentId)  // Usar el ID para actualizar
+                        .set(mapOf(
+                            "nombre" to zonaEditada?.nombre,
+                            "coordenadas" to geoPoint,  // Guardar como GeoPoint
+                            "rango" to zonaEditada?.rango,
+                            "nombreUbicacion" to zonaEditada?.nombreUbicacion
+                        ))
+                        .addOnSuccessListener {
+                            finish()  // Volver a la pantalla anterior
+                        }
+                        .addOnFailureListener { e ->
+                            e.printStackTrace()
+                        }
+                }
+            }
+        }
+    }
+
+
 
     override fun onResume() {
         super.onResume()

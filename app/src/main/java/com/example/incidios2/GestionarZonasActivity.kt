@@ -8,13 +8,14 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app.Zona
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 
 class GestionarZonasActivity : AppCompatActivity() {
 
-    private lateinit var btnAgregarZona: Button
+    private lateinit var fabAgregarZona: FloatingActionButton
     private lateinit var listViewZonas: ListView
     private val firestore = FirebaseFirestore.getInstance()
     private val currentUser = FirebaseAuth.getInstance().currentUser
@@ -27,17 +28,16 @@ class GestionarZonasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gestionar_zonas)
 
-        btnAgregarZona = findViewById(R.id.btnAgregarZona)
+        fabAgregarZona = findViewById(R.id.fabAgregarZona)
         listViewZonas = findViewById(R.id.listViewZonas)
 
         // Configurar botón para agregar nueva zona
-        btnAgregarZona.setOnClickListener {
-            zonaToEdit = null // Limpiar la zona a editar para crear una nueva
+        fabAgregarZona.setOnClickListener {
+            zonaToEdit = null
             val intent = Intent(this, AgregarZonaActivity::class.java)
             startActivity(intent)
         }
 
-        // Cargar zonas del usuario actual
         cargarZonas()
     }
 
@@ -56,7 +56,8 @@ class GestionarZonasActivity : AppCompatActivity() {
                             nombre = nombre,
                             coordenadas = LatLng(coordenadas.latitude, coordenadas.longitude),
                             rango = rango,
-                            nombreUbicacion = nombreUbicacion
+                            nombreUbicacion = nombreUbicacion,
+                            documentId = document.id  // Guardar el ID del documento
                         )
                         zonas.add(zona)
                     }
@@ -67,6 +68,7 @@ class GestionarZonasActivity : AppCompatActivity() {
                 }
         }
     }
+
 
     override fun onResume() {
         super.onResume()
