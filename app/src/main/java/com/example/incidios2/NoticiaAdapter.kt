@@ -46,6 +46,5 @@ class NoticiaAdapter(
             notifyItemChanged(position) // Notifica el cambio para actualizar el icono
         }
     }
-
     override fun getItemCount(): Int = noticias.size
 }
