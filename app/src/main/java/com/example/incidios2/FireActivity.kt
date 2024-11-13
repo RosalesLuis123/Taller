@@ -31,6 +31,8 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polygon
 import java.io.IOException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class FireActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
@@ -195,8 +197,11 @@ class FireActivity : AppCompatActivity() {
         }
     }
 
+
+
     private fun fetchFireData() {
-        val url = "https://firms.modaps.eosdis.nasa.gov/api/area/csv/38cd0617b2cf0dce3e5e92461671c67f/VIIRS_SNPP_NRT/world/1/2024-10-27"
+        val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val url = "https://firms.modaps.eosdis.nasa.gov/api/area/csv/38cd0617b2cf0dce3e5e92461671c67f/VIIRS_SNPP_NRT/world/1/$currentDate"
         val client = OkHttpClient()
         val request = Request.Builder().url(url).build()
 
@@ -215,6 +220,7 @@ class FireActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun parseFireData(data: String) {
         try {
