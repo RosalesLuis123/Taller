@@ -239,7 +239,7 @@ class FireActivity : AppCompatActivity() {
 
             lines.forEach { (lat, lon, intensity) ->
                 val (color, markerList) = when {
-                    intensity < 150 -> Color.GREEN to buenoMarkers
+                    intensity < 150 -> Color.parseColor("#F6FC57") to buenoMarkers
                     intensity in 150.0..250.0 -> Color.YELLOW to mediaMarkers
                     intensity in 250.0..300.0 -> Color.parseColor("#FFA500") to maloMarkers
                     else -> Color.RED to graveMarkers

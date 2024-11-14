@@ -25,7 +25,7 @@ class NoticiaAdapter(
 
     class NoticiaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.titleTextView)
-       // val description: TextView = itemView.findViewById(R.id.descriptionTextView)
+        // val description: TextView = itemView.findViewById(R.id.descriptionTextView)
         val image: ImageView = itemView.findViewById(R.id.imageView)
         val favoriteButton: ImageView = itemView.findViewById(R.id.favoriteButton)
         val verMasButton: MaterialButton = itemView.findViewById(R.id.verMasButton)

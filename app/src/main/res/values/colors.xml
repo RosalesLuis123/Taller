@@ -23,7 +23,7 @@
     <color name="color_text_1">#7A7979</color>
     <color name="color_text_2">#FBF9F9</color>
 
-    <color name="color_button_bueno">#4CAF50</color>
+    <color name="color_button_bueno">#F6FC57</color>
     <color name="color_button_media">#FFC107</color>
     <color name="color_button_malo">#FF5722</color>
     <color name="color_button_grave">#F44336</color>
