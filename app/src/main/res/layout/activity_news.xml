@@ -24,35 +24,38 @@
             android:layout_height="wrap_content"
             android:background="@drawable/card_background"
             android:hint="Buscar noticias"
-            android:textColor="@color/color_text_1"
             android:minHeight="48dp"
+            android:textColor="@color/color_text_1"
+            android:drawableEnd="@drawable/baseline_search_24"
+            android:drawableTint="@color/orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/searchButtonNoticias"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="0dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/baseline_search_24"
-            app:backgroundTint="@null"
-            app:tint="@color/orange" />
     </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/filterButtonFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Favoritos"
+        app:backgroundTint="@color/orange"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/baseline_star_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_marginTop="16dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.331"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/filterButtonFavorite"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="NotSibling" />
 

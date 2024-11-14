@@ -23,9 +23,11 @@
         android:theme="@style/Theme.Incidios2"
         tools:targetApi="31">
         <activity
-            android:name=".AgregarZonaActivity"
+            android:name=".NewsDetailActivity"
             android:exported="false" />
-        <!-- Otras actividades -->
+        <activity
+            android:name=".AgregarZonaActivity"
+            android:exported="false" /> <!-- Otras actividades -->
         <activity
             android:name=".EditProfileActivity"
             android:exported="false" />

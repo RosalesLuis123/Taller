@@ -34,4 +34,7 @@
     <color name="black">#000000</color>
     <color name="orange_dark">#D84315</color>
     <color name="gray">#808080</color> <!-- Un gris estándar -->
+
+
+    <color name="SemiTransparentBlack">#A9DFDFDF</color>
 </resources>

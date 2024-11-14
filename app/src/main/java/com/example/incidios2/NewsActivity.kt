@@ -13,25 +13,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 class NewsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchBar: EditText
+    private lateinit var filterButtonFavorite: MaterialButton // Agregar la referencia del botón de favoritos
     private lateinit var noticiaAdapter: NoticiaAdapter
     private var noticias: List<Noticia> = emptyList()
     private val favoritosIds = mutableSetOf<String>() // Para almacenar los IDs de favoritos
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
+    private var isFilteringFavorites = false // Flag para saber si estamos filtrando
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +42,11 @@ class NewsActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
         searchBar = findViewById(R.id.searchBar)
+        filterButtonFavorite = findViewById(R.id.filterButtonFavorite) // Asignación del botón de favoritos
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://newsapi.org/") // URL base de NewsAPI
+            .baseUrl("https://newsapi.org/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -53,7 +57,7 @@ class NewsActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     noticias = response.body()?.articles?.map { article ->
                         Noticia(
-                            id = article.url, // Usando la URL como ID único
+                            id = article.url,
                             title = article.title,
                             description = article.description,
                             url = article.url,
@@ -64,8 +68,9 @@ class NewsActivity : AppCompatActivity() {
                     // Obtener los favoritos desde Firestore
                     getUserFavorites()
 
-                    // Asigna el adaptador después de obtener las noticias
-                    noticiaAdapter = NoticiaAdapter(noticias, favoritosIds) { noticia, isFavorite ->
+                    // Esperar que los favoritos estén listos antes de asignar el adaptador
+                    noticiaAdapter = NoticiaAdapter(noticias, favoritosIds, { noticia, isFavorite ->
+                        // Lógica de favoritos
                         if (isFavorite) {
                             favoritosIds.add(noticia.id)
                             saveFavorite(noticia.id)
@@ -73,46 +78,106 @@ class NewsActivity : AppCompatActivity() {
                             favoritosIds.remove(noticia.id)
                             removeFavorite(noticia.id)
                         }
-                        // Actualizar el adaptador para mostrar los cambios
-                        noticiaAdapter.notifyDataSetChanged()
-                    }
+                        noticiaAdapter.notifyDataSetChanged() // Notifica al adaptador que los datos han cambiado
+                    }, { url ->
+                        // Lógica de "Ver más"
+                        val intent = Intent(this@NewsActivity, NewsDetailActivity::class.java)
+                        intent.putExtra("url", url) // Pasa la URL de la noticia
+                        startActivity(intent)
+                    })
+
                     recyclerView.adapter = noticiaAdapter
+                } else {
+                    Toast.makeText(this@NewsActivity, "Error al cargar noticias", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                Toast.makeText(this@NewsActivity, "Error al cargar noticias", Toast.LENGTH_SHORT)
-                    .show()
+                runOnUiThread {
+                    Toast.makeText(this@NewsActivity, "Error al cargar noticias", Toast.LENGTH_SHORT).show()
+                }
             }
         })
 
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val query = s.toString()
+
+                // Filtrar las noticias basadas en el texto de búsqueda
                 val filteredNoticias = noticias.filter {
                     it.title.contains(query, ignoreCase = true) ||
                             (it.description?.contains(query, ignoreCase = true) == true)
                 }
-                noticiaAdapter =
-                    NoticiaAdapter(filteredNoticias, favoritosIds) { noticia, isFavorite ->
-                        if (isFavorite) {
-                            favoritosIds.add(noticia.id)
-                            saveFavorite(noticia.id)
-                        } else {
-                            favoritosIds.remove(noticia.id)
-                            removeFavorite(noticia.id)
-                        }
-                        noticiaAdapter.notifyDataSetChanged()
+
+                // Crear el adaptador con los datos filtrados
+                noticiaAdapter = NoticiaAdapter(filteredNoticias, favoritosIds, { noticia, isFavorite ->
+                    // Lógica de favoritos
+                    if (isFavorite) {
+                        favoritosIds.add(noticia.id)
+                        saveFavorite(noticia.id)
+                    } else {
+                        favoritosIds.remove(noticia.id)
+                        removeFavorite(noticia.id)
                     }
+                    noticiaAdapter.notifyDataSetChanged() // Notifica que los datos han cambiado
+                }, { url ->
+                    // Lógica de "Ver más"
+                    val intent = Intent(this@NewsActivity, NewsDetailActivity::class.java)
+                    intent.putExtra("url", url) // Pasa la URL de la noticia
+                    startActivity(intent)
+                })
+
+                // Establecer el adaptador en el RecyclerView
                 recyclerView.adapter = noticiaAdapter
             }
 
+            // Otros métodos de TextWatcher (antesTextChanged y onTextChanged) se pueden dejar vacíos
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+
+        filterButtonFavorite.setOnClickListener {
+            isFilteringFavorites = !isFilteringFavorites // Cambia el estado de filtrado
+
+            // Filtra las noticias según el estado de los favoritos
+            val filteredNoticias = if (isFilteringFavorites) {
+                // Muestra solo los favoritos
+                noticias.filter { favoritosIds.contains(it.id) }
+            } else {
+                // Muestra todas las noticias
+                noticias
+            }
+
+            // Crea una nueva instancia del adaptador con las noticias filtradas
+            noticiaAdapter = NoticiaAdapter(filteredNoticias, favoritosIds, { noticia, isFavorite ->
+                // Lógica para manejar el favorito
+                if (isFavorite) {
+                    favoritosIds.add(noticia.id)
+                    saveFavorite(noticia.id)
+                } else {
+                    favoritosIds.remove(noticia.id)
+                    removeFavorite(noticia.id)
+                }
+                // Notifica al adaptador que los datos han cambiado
+                noticiaAdapter.notifyDataSetChanged()
+            }, { url ->
+                // Lógica para manejar el botón "Ver más"
+                val intent = Intent(this@NewsActivity, NewsDetailActivity::class.java)
+                intent.putExtra("url", url) // Pasa la URL de la noticia
+                startActivity(intent)
+            })
+
+            // Asigna el adaptador al RecyclerView
+            recyclerView.adapter = noticiaAdapter
+
+            // Cambia el texto del botón según el estado del filtro
+            filterButtonFavorite.text = if (isFilteringFavorites) "Ver todas" else "Favoritos"
+        }
+
+
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigation.selectedItemId = R.id.navigation_news // Seleccionar el ítem de configuración
+        bottomNavigation.selectedItemId = R.id.navigation_news
 
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -140,30 +205,47 @@ class NewsActivity : AppCompatActivity() {
         }
     }
 
-    // Función para obtener los favoritos del usuario desde Firestore
     private fun getUserFavorites() {
         val userId = auth.currentUser?.uid ?: return
-        db.collection("users").document(userId).get()
+        val userRef = db.collection("users").document(userId)
+
+        userRef.get()
             .addOnSuccessListener { document ->
-                document?.get("favorites")?.let { favorites ->
+                if (document.exists()) {
+                    val favorites = document.get("favorites") as? List<String> ?: emptyList()
                     favoritosIds.clear()
-                    favoritosIds.addAll((favorites as List<String>))
+                    favoritosIds.addAll(favorites)
                     noticiaAdapter.notifyDataSetChanged()
+                } else {
+                    userRef.set(mapOf("favorites" to emptyList<String>()))
                 }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al cargar favoritos", Toast.LENGTH_SHORT).show()
             }
     }
 
-    // Función para guardar una noticia en los favoritos del usuario
+
     private fun saveFavorite(newsId: String) {
         val userId = auth.currentUser?.uid ?: return
         val userRef = db.collection("users").document(userId)
+
         userRef.update("favorites", FieldValue.arrayUnion(newsId))
+            .addOnFailureListener {
+                // Si falla, intenta crear el campo favorites con el ID de la noticia
+                userRef.set(mapOf("favorites" to listOf(newsId)), SetOptions.merge())
+            }
     }
 
-    // Función para eliminar una noticia de los favoritos del usuario
+
     private fun removeFavorite(newsId: String) {
         val userId = auth.currentUser?.uid ?: return
         val userRef = db.collection("users").document(userId)
+
         userRef.update("favorites", FieldValue.arrayRemove(newsId))
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al eliminar favorito", Toast.LENGTH_SHORT).show()
+            }
     }
+
 }
