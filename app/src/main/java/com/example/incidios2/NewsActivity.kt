@@ -61,7 +61,9 @@ class NewsActivity : AppCompatActivity() {
                             title = article.title,
                             description = article.description,
                             url = article.url,
-                            urlToImage = article.urlToImage
+                            urlToImage = article.urlToImage,
+                            publishedAt = article.publishedAt,
+                            content = article.content
                         )
                     } ?: emptyList()
 
@@ -173,6 +175,8 @@ class NewsActivity : AppCompatActivity() {
 
             // Cambia el texto del botón según el estado del filtro
             filterButtonFavorite.text = if (isFilteringFavorites) "Ver todas" else "Favoritos"
+            val iconRes = if (isFilteringFavorites) R.drawable.icon_ver_todo else R.drawable.icon_favorite_activo
+            filterButtonFavorite.setIconResource(iconRes)
         }
 
 

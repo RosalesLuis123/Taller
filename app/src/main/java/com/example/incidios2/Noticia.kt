@@ -7,5 +7,7 @@ data class Noticia(
     val title: String,
     val description: String?,
     val url: String,
-    val urlToImage: String? // URL de la imagen
+    val urlToImage: String?, // URL de la imagen
+    val publishedAt:String?,
+    val content: String?
 )

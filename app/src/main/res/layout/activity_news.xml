@@ -42,7 +42,7 @@
         android:text="Favoritos"
         app:backgroundTint="@color/orange"
         app:cornerRadius="12dp"
-        app:icon="@drawable/baseline_star_24"
+        app:icon="@drawable/icon_favorite_activo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
