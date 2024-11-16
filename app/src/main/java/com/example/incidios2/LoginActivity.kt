@@ -101,15 +101,6 @@ class LoginActivity : AppCompatActivity() {
             startGoogleSignIn()
         }
 
-        findViewById<ImageButton>(R.id.facebookIcon)?.setOnClickListener {
-            // Implementar inicio de sesión con Facebook
-            showToast("Iniciando sesión con Facebook...")
-        }
-
-        findViewById<ImageButton>(R.id.twitterIcon)?.setOnClickListener {
-            // Implementar inicio de sesión con Twitter
-            showToast("Iniciando sesión con Twitter...")
-        }
     }
 
     private fun showCreateAccountDialog() {

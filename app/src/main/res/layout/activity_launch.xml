@@ -102,26 +102,6 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/facebookButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/social_button_background"
-            android:contentDescription="Facebook"
-            android:padding="8dp"
-            android:src="@drawable/ic_facebook" />
-
-        <ImageButton
-            android:id="@+id/twitterButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/social_button_background"
-            android:contentDescription="Twitter"
-            android:padding="8dp"
-            android:src="@drawable/ic_twitter" />
-
-        <ImageButton
             android:id="@+id/googleButton"
             android:layout_width="40dp"
             android:layout_height="40dp"

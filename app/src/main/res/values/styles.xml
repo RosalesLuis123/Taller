@@ -9,6 +9,10 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
+    <style name="CircularImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 
     <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">25dp</item>

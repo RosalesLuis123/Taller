@@ -21,15 +21,6 @@ class LaunchActivity : AppCompatActivity() {
             finish()
         }
 
-        // Configurar botones sociales
-        findViewById<ImageButton>(R.id.facebookButton).setOnClickListener {
-            // Implementar inicio de sesión con Facebook
-        }
-
-        findViewById<ImageButton>(R.id.twitterButton).setOnClickListener {
-            // Implementar inicio de sesión con Twitter
-        }
-
         findViewById<ImageButton>(R.id.googleButton).setOnClickListener {
             // Implementar inicio de sesión con Google
         }
