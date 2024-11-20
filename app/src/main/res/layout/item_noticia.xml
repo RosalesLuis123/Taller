@@ -10,13 +10,13 @@
     android:background="@drawable/card_noticias"
     >
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:contentDescription="@string/news_image"
-        android:background="@drawable/rounded_img_noticias"
+        app:shapeAppearanceOverlay="@style/imagenNews"
         android:clipToPadding="true"
         android:clipToOutline="true" /> <!-- Clip to outline for rounded corners -->
 

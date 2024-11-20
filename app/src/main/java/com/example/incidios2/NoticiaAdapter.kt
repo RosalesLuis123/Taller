@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -40,10 +41,16 @@ class NoticiaAdapter(
     }
 
     override fun onBindViewHolder(holder: NoticiaViewHolder, position: Int) {
+
         val noticia = noticias[position]
         holder.title.text = noticia.title
         holder.FechaPublicacion.text = formatFecha(noticia.publishedAt ?: "")
-        Glide.with(holder.itemView.context).load(noticia.urlToImage).into(holder.image)
+        //Glide.with(holder.itemView.context).load(noticia.urlToImage).into(holder.image)
+        Glide.with(holder.itemView.context)
+            .load(noticia.urlToImage)
+            .placeholder(R.drawable.imagen_noticias_defecto) // Imagen predeterminada mientras carga
+            .error(R.drawable.imagen_noticias_error) // Imagen en caso de error
+            .into(holder.image)
 
         // Botón de favoritos
         holder.favoriteButton.setImageResource(
@@ -54,8 +61,9 @@ class NoticiaAdapter(
         holder.favoriteButton.setOnClickListener {
             val isFavorite = !favoritosIds.contains(noticia.id)
             onFavoriteClick(noticia, isFavorite)
-            notifyItemChanged(position) // Actualiza el item
+            notifyItemChanged(position)
         }
+
 
         // Botón "Ver más"
         holder.verMasButton.setOnClickListener {

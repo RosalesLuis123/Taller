@@ -7,7 +7,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +37,7 @@ class NewsActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private var isFilteringFavorites = false // Flag para saber si estamos filtrando
+    private lateinit var noFavoritesMessage: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,7 +136,6 @@ class NewsActivity : AppCompatActivity() {
                 recyclerView.adapter = noticiaAdapter
             }
 
-            // Otros métodos de TextWatcher (antesTextChanged y onTextChanged) se pueden dejar vacíos
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -144,16 +146,20 @@ class NewsActivity : AppCompatActivity() {
 
             // Filtra las noticias según el estado de los favoritos
             val filteredNoticias = if (isFilteringFavorites) {
-                // Muestra solo los favoritos
                 noticias.filter { favoritosIds.contains(it.id) }
             } else {
-                // Muestra todas las noticias
                 noticias
+            }
+            // Mostrar u ocultar el mensaje de "No hay favoritos"
+            noFavoritesMessage= findViewById(R.id.noFavoritesMessage)
+            if (isFilteringFavorites && filteredNoticias.isEmpty()) {
+                noFavoritesMessage.visibility = View.VISIBLE
+            } else {
+                noFavoritesMessage.visibility = View.GONE
             }
 
             // Crea una nueva instancia del adaptador con las noticias filtradas
             noticiaAdapter = NoticiaAdapter(filteredNoticias, favoritosIds, { noticia, isFavorite ->
-                // Lógica para manejar el favorito
                 if (isFavorite) {
                     favoritosIds.add(noticia.id)
                     saveFavorite(noticia.id)
@@ -161,16 +167,13 @@ class NewsActivity : AppCompatActivity() {
                     favoritosIds.remove(noticia.id)
                     removeFavorite(noticia.id)
                 }
-                // Notifica al adaptador que los datos han cambiado
                 noticiaAdapter.notifyDataSetChanged()
             }, { url ->
-                // Lógica para manejar el botón "Ver más"
                 val intent = Intent(this@NewsActivity, NewsDetailActivity::class.java)
                 intent.putExtra("url", url) // Pasa la URL de la noticia
                 startActivity(intent)
             })
 
-            // Asigna el adaptador al RecyclerView
             recyclerView.adapter = noticiaAdapter
 
             // Cambia el texto del botón según el estado del filtro
