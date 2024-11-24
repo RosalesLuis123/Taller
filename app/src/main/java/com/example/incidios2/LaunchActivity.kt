@@ -20,9 +20,5 @@ class LaunchActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-
-        findViewById<ImageButton>(R.id.googleButton).setOnClickListener {
-            // Implementar inicio de sesión con Google
-        }
     }
 }

@@ -65,7 +65,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:backgroundTint="@color/color_button_bueno"
-            android:text="B"
+            android:text="A"
             android:layout_marginBottom="5dp"
             app:strokeColor="@color/color_text_2"
             app:strokeWidth="2dp"

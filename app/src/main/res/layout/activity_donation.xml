@@ -137,26 +137,37 @@
                 </LinearLayout>
 
             </GridLayout>
+            <!-- Contenedor del mapa con un estilo mejorado -->
             <LinearLayout
                 android:id="@+id/mapview"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_margin="8dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:padding="12dp"
+                android:background="@drawable/bg_map_container">
+
+                <!-- Título del mapa -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ubicación Estacion de Bomberos"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:text="Ubicación de la Estación de Bomberos"
+                    android:textColor="#1C1C1C"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center"/>
+
+                <!-- Contenedor del mapa con borde redondeado -->
                 <FrameLayout
                     android:id="@+id/mapContainer"
-                    android:layout_width="320dp"
+                    android:layout_width="match_parent"
                     android:layout_height="240dp"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_map_rounded"/>
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

@@ -139,6 +139,13 @@ class EditProfileActivity : AppCompatActivity() {
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Imagen de perfil actualizada", Toast.LENGTH_SHORT).show()
+
+                    // Actualizar la imagen de perfil en el ImageView
+                    Glide.with(this)
+                        .load(uri)
+                        .placeholder(R.drawable.ic_user) // Imagen predeterminada mientras carga
+                        .error(R.drawable.ic_error) // Imagen en caso de error
+                        .into(profileImageView)
                 } else {
                     Toast.makeText(this, "Error al actualizar la imagen: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }

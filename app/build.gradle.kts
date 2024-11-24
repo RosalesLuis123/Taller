@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.storage.ktx)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.play.services.auth)
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
     implementation(libs.androidx.constraintlayout)
     implementation(libs.support.annotations)
