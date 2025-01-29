@@ -1,0 +1,1 @@
+App de preddicon de incendios empleando API de Nasa Para predecir, Firebase para Autenticacion y almacenamiento de Datos de usuario, Y Maps para la precision y ubicacion de los incendios que se encuentren
